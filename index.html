@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>HTML pen</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lens Prescription</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <div id="prescription">
+        <!-- Optical Shop Details -->
+        <div class="header">
+            <h2>Srinidhi Eye Care & Optical</h2>
+            <p>Beside Bangalore Kobari Bondalu, Nizamabad</p>
+        </div>
+
+        <!-- Optometrist Details -->
+        <div class="optometrist-details">
+            <div class="left">
+                <p><strong>Optometrist:</strong> B Mahesh Kumar</p>
+                <p><strong>Mobile:</strong> +91 96037 69267</p>
+            </div>
+            <div class="right">
+                <p><strong>Date:</strong> <span id="currentDate"></span></p>
+            </div>
+        </div>
+
+        <!-- Patient Details -->
+        <div class="section-title">Patient Details</div>
+        <div class="patient-details">
+            <div>
+                <label for="patientName">Patient Name</label>
+                <input type="text" id="patientName" placeholder="Enter name">
+            </div>
+            <div>
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Age">
+            </div>
+            <div>
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div>
+                <label for="village">Village</label>
+                <input type="text" id="village" placeholder="Village">
+            </div>
+        </div>
+
+        <!-- Prescription Table -->
+        <div class="section-title">Prescription Details</div>
+        <div class="prescription-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Left Eye</th>
+                        <th colspan="3">Right Eye</th>
+                    </tr>
+                    <tr>
+                        <th>SPH</th><th>CYL</th><th>AXIS</th>
+                        <th>SPH</th><th>CYL</th><th>AXIS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="leftSPH"></td>
+                        <td><input type="text" id="leftCYL"></td>
+                        <td><input type="text" id="leftAXIS"></td>
+                        <td><input type="text" id="rightSPH"></td>
+                        <td><input type="text" id="rightCYL"></td>
+                        <td><input type="text" id="rightAXIS"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lens Type -->
+        <div class="section-title">Lens Type</div>
+        <div class="lens-type">
+            <label><input type="checkbox" id="blueCut"> Blue Cut</label>
+            <label><input type="checkbox" id="progressive"> Progressive</label>
+            <label><input type="checkbox" id="bifocal"> Bifocal</label>
+            <label><input type="checkbox" id="antiGlare"> Anti-Glare</label>
+        </div>
+
+        <!-- Amount -->
+        <div class="section-title">Amount</div>
+        <div class="amount">
+            <strong>₹</strong>
+            <input type="number" id="amount" placeholder="Enter amount">
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button onclick="generatePDF()">Download PDF</button>
+            <button onclick="window.print()">Print</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // Auto-fill the current date
+        document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+
+        function generatePDF() {
+            const element = document.getElementById('prescription');
+            html2pdf().from(element).save('Lens_Prescription.pdf');
+        }
+    </script>
+
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
