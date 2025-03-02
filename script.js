@@ -1,5 +1,4 @@
-<script>
-        // Auto-fill the current date
+ // Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
         // Generate PDF
@@ -58,4 +57,3 @@
                 }
             }, 3000);
         });
-    </script>
