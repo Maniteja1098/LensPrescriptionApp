@@ -58,33 +58,3 @@
                 }
             }, 3000);
         });
-// Install Button Logic
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (event) => {
-    // Prevent the default prompt
-    event.preventDefault();
-    // Save the event for later use
-    deferredPrompt = event;
-    // Show the install button
-    const installButton = document.getElementById('installApp');
-    installButton.style.display = 'block';
-
-    // Handle install button click
-    installButton.addEventListener('click', () => {
-        // Show the installation prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-            } else {
-                console.log('User dismissed the install prompt');
-            }
-            // Reset the deferred prompt
-            deferredPrompt = null;
-            // Hide the install button
-            installButton.style.display = 'none';
-        });
-    });
-});
