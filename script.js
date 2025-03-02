@@ -1,4 +1,16 @@
- // Auto-fill the current date
+function resetStats() {
+    localStorage.setItem("prescriptionCount", "0");
+    localStorage.setItem("amountEarned", "0");
+    document.getElementById("prescriptionCount").innerText = "0";
+    document.getElementById("amountEarned").innerText = "₹0";
+    alert("Prescription stats reset!");
+}
+
+
+
+
+
+// Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
         // Generate PDF
