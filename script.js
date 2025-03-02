@@ -144,3 +144,55 @@ function resetForm() {
 // Auto-fill the current date
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+
+
+function sendWhatsApp() {
+let mobile = document.getElementById("patientMobile").value.trim();
+let whatsappURL = `https://wa.me/${mobile}?text=${encodedMessage}`;
+    // Get patient details
+    let patientName = document.getElementById("patientName").value || "N/A";
+    let age = document.getElementById("age").value || "N/A";
+    let gender = document.getElementById("gender").value || "N/A";
+    let village = document.getElementById("village").value || "N/A";
+    
+    // Get prescription details
+    let leftSPH = document.getElementById("leftSPH").value || "N/A";
+    let leftCYL = document.getElementById("leftCYL").value || "N/A";
+    let leftAXIS = document.getElementById("leftAXIS").value || "N/A";
+    let rightSPH = document.getElementById("rightSPH").value || "N/A";
+    let rightCYL = document.getElementById("rightCYL").value || "N/A";
+    let rightAXIS = document.getElementById("rightAXIS").value || "N/A";
+    
+    // Get lens type
+    let lensTypes = [];
+    if (document.getElementById("blueCut").checked) lensTypes.push("Blue Cut");
+    if (document.getElementById("progressive").checked) lensTypes.push("Progressive");
+    if (document.getElementById("bifocal").checked) lensTypes.push("Bifocal");
+    if (document.getElementById("antiGlare").checked) lensTypes.push("Anti-Glare");
+    
+    let lensTypeText = lensTypes.length > 0 ? lensTypes.join(", ") : "N/A";
+    
+    // Get amount
+    let amount = document.getElementById("amount").value || "0";
+    
+    // Construct the message
+    let message = `👓 *Srinidhi Eye Care & Optical* 👁️\n\n` +
+                  `📌 *Patient Details:*\n` +
+                  `👤 Name: ${patientName}\n` +
+                  `🎂 Age: ${age}\n` +
+                  `⚧ Gender: ${gender}\n` +
+                  `🏠 Village: ${village}\n\n` +
+                  `📌 *Prescription Details:*\n` +
+                  `👀 Left Eye: SPH: ${leftSPH}, CYL: ${leftCYL}, AXIS: ${leftAXIS}\n` +
+                  `👁 Right Eye: SPH: ${rightSPH}, CYL: ${rightCYL}, AXIS: ${rightAXIS}\n\n` +
+                  `📌 *Lens Type:* ${lensTypeText}\n\n` +
+                  `💰 *Total Amount:* ₹${amount}\n\n` +
+                  `📞 *For More Details Contact:* +91 96037 69267`;
+    
+    // Encode message for WhatsApp
+    let encodedMessage = encodeURIComponent(message);
+    
+    // Open WhatsApp
+    let whatsappURL = `https://wa.me/?text=${encodedMessage}`;
+    window.open(whatsappURL, "_blank");
+}
