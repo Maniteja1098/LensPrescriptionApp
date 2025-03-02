@@ -35,6 +35,7 @@
                 }
             }, 3000);
         });
+
 // Initialize counters
 let prescriptionCount = 0;
 let amountEarned = 0;
@@ -73,30 +74,29 @@ function saveCounters() {
 // Check for day change when the page loads
 checkDayChange();
 
-// Function to submit prescription
-function submitPrescription() {
+// Function to submit the form
+function submitForm() {
+    // Get form values
     const patientName = document.getElementById("patientName").value.trim();
     const age = document.getElementById("age").value.trim();
-    const amount = document.getElementById("amount").value.trim();
+    const amount = parseFloat(document.getElementById("amount").value);
 
+    // Validate required fields
     if (!patientName || !age || !amount) {
         alert("Please fill in all required fields.");
         return;
     }
 
+    // Validate amount
     if (isNaN(amount) || amount <= 0) {
         alert("Please enter a valid amount.");
         return;
     }
 
-
-// Function to submit the form
-function submitForm() {
     // Increment prescription count
     prescriptionCount++;
 
     // Add the entered amount to the total amount earned
-    const amount = parseFloat(document.getElementById("amount").value) || 0;
     amountEarned += amount;
 
     // Update the UI with the new counters
@@ -132,4 +132,5 @@ function resetForm() {
 }
 
 // Auto-fill the current date
+document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
