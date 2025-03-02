@@ -39,8 +39,19 @@ p {
 .optometrist-details {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
     font-size: 14px;
     padding: 10px 0;
+}
+
+.optometrist-details .left {
+    display: flex;
+    flex-direction: column; /* Stack name and mobile vertically */
+    gap: 5px; /* Space between name and mobile */
+}
+
+.optometrist-details .right {
+    text-align: right; /* Align date to the right */
 }
 
 /* Section Titles */
