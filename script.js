@@ -103,3 +103,52 @@ document.getElementById("generatePrescription").addEventListener("click", functi
     updateStats();
     saveCounters(); // Save updated counters to localStorage
 });
+function submitPrescription() {
+    const patientName = document.getElementById("patientName").value;
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const village = document.getElementById("village").value;
+    const leftSPH = document.getElementById("leftSPH").value;
+    const leftCYL = document.getElementById("leftCYL").value;
+    const leftAXIS = document.getElementById("leftAXIS").value;
+    const rightSPH = document.getElementById("rightSPH").value;
+    const rightCYL = document.getElementById("rightCYL").value;
+    const rightAXIS = document.getElementById("rightAXIS").value;
+    const blueCut = document.getElementById("blueCut").checked;
+    const progressive = document.getElementById("progressive").checked;
+    const bifocal = document.getElementById("bifocal").checked;
+    const antiGlare = document.getElementById("antiGlare").checked;
+    const amount = document.getElementById("amount").value;
+    const date = new Date().toLocaleDateString();
+
+    if (!patientName || !age || !amount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    const prescriptionData = {
+        patientName,
+        age,
+        gender,
+        village,
+        leftSPH,
+        leftCYL,
+        leftAXIS,
+        rightSPH,
+        rightCYL,
+        rightAXIS,
+        lensType: {
+            blueCut,
+            progressive,
+            bifocal,
+            antiGlare
+        },
+        amount,
+        date
+    };
+
+    console.log("Prescription Submitted:", prescriptionData);
+    alert("Prescription submitted successfully!");
+
+    // You can now send this data to Firebase, Google Sheets, or LocalStorage
+}
