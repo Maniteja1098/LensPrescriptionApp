@@ -132,21 +132,15 @@ function resetForm() {
 }
 
     function resetStats() {
-    // Reset the counters
-    prescriptionCount = 0;
-    amountEarned = 0;
+        localStorage.setItem("prescriptionCount", "0");
+        localStorage.setItem("amountEarned", "0");
+        alert("Prescription count and amount earned have been reset.");
+        location.reload(); // Reloads page to reflect changes
+    }
 
-    // Update UI immediately
-    document.getElementById("prescriptionCount").textContent = prescriptionCount;
-    document.getElementById("amountEarned").textContent = `₹${amountEarned}`;
-
-    // Reset in localStorage
-    localStorage.setItem("prescriptionCount", "0");
-    localStorage.setItem("amountEarned", "0");
-
-    // Confirmation alert
-    alert("Prescription count and amount earned have been reset.");
-}
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("resetButton").addEventListener("click", resetStats);
+    });
 
 
 // Auto-fill the current date
