@@ -1,18 +1,17 @@
-// Auto-fill the current date
+ // Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
         // Generate PDF
         function generatePDF() {
-    const element = document.getElementById('prescription');
-    html2pdf().from(element).save('Lens_Prescription.pdf');
-}
+            const element = document.getElementById('prescription');
+            html2pdf().from(element).save('Lens_Prescription.pdf');
+        }
 
         // Reset Form
         function resetForm() {
-        console.log("Reset button clicked!");
             document.getElementById("patientName").value = "";
             document.getElementById("age").value = "";
-            document.getElementById("gender").value = "Male"; // Default value
+            document.getElementById("gender").value = "Male";
             document.getElementById("village").value = "";
 
             document.getElementById("leftSPH").value = "";
