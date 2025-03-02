@@ -1,15 +1,3 @@
-function resetStats() {
-    localStorage.setItem("prescriptionCount", "0");
-    localStorage.setItem("amountEarned", "0");
-    document.getElementById("prescriptionCount").innerText = "0";
-    document.getElementById("amountEarned").innerText = "₹0";
-    alert("Prescription stats reset!");
-}
-
-
-
-
-
 // Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
@@ -142,6 +130,16 @@ function resetForm() {
 
     document.getElementById("amount").value = "";
 }
+
+    // Function to reset counters (for testing)
+        function resetCounters() {
+            prescriptionCount = 0;
+            amountEarned = 0;
+            updateStats(); // Update the UI
+            localStorage.setItem("prescriptionCount", 0); // Reset in localStorage
+            localStorage.setItem("amountEarned", 0); // Reset in localStorage
+            alert("Counters have been reset.");
+        }
 
 // Auto-fill the current date
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
