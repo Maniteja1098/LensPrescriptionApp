@@ -1,83 +1,73 @@
-// Display Current Date
-document.getElementById("currentDate").innerText = new Date().toLocaleDateString();
+ <script>
+        // Display Current Date
+        window.onload = function () {
+            document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+        };
 
-// Generate Prescription (Formats for Everycom EC-58 Printer)
-document.getElementById("generatePrescription").addEventListener("click", function() {
-    alert("Prescription formatted for Everycom EC-58 Printer!");
-});
+        // Generate Prescription (Formats for Everycom EC-58 Printer)
+        document.getElementById("generatePrescription").addEventListener("click", function() {
+            alert("Prescription formatted for Everycom EC-58 Printer!");
+        });
 
-let deferredPrompt;
+        let deferredPrompt;
 
-window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
+        // Handle PWA Install Prompt
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredPrompt = event;
 
-    // Show install prompt automatically after 3 seconds
-    setTimeout(() => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === "accepted") {
-                    console.log("User accepted the install prompt.");
-                } else {
-                    console.log("User dismissed the install prompt.");
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === "accepted") {
+                            console.log("User accepted the install prompt.");
+                        } else {
+                            console.log("User dismissed the install prompt.");
+                        }
+                        deferredPrompt = null;
+                    }).catch(error => console.error("Install prompt error:", error));
                 }
-                deferredPrompt = null;
-            }).catch(error => console.error("Install prompt error:", error));
+            }, 3000); 
+        });
+
+        // Generate PDF
+        function generatePDF() {
+            var element = document.getElementById('prescription');
+            var opt = {
+                margin: 5,
+                filename: 'Prescription.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().from(element).set(opt).toPdf().get('pdf').then(function(pdf) {
+                var blobURL = URL.createObjectURL(pdf.output('blob'));
+                window.open(blobURL, '_blank'); 
+            }).catch(error => console.error("PDF generation error:", error));
         }
-    }, 3000); // Change timing if needed
-});
 
-// Generate PDF
-function generatePDF() {
-    var element = document.getElementById('prescription');  // Get the prescription div
-    var opt = {
-        margin: 5,
-        filename: 'Prescription.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+        // Reset Form
+        document.getElementById("resetButton").addEventListener("click", function resetForm() {
+            document.getElementById("patientName").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("gender").value = "Male"; // Default value
+            document.getElementById("village").value = "";
 
-    html2pdf().from(element).set(opt).toPdf().get('pdf').then(function(pdf) {
-        var blobURL = URL.createObjectURL(pdf.output('blob'));
-        window.open(blobURL, '_blank');  // Open PDF in new tab for printing
-    }).catch(error => console.error("PDF generation error:", error));
-}
-<!-- Buttons -->
-<div class="buttons">
-    <button onclick="generatePDF()">Download PDF</button>
-    <button onclick="window.print()">Print</button>
-    <button onclick="resetForm()">Reset</button> <!-- Reset Button -->
-</div>
+            document.getElementById("leftSPH").value = "";
+            document.getElementById("leftCYL").value = "";
+            document.getElementById("leftAXIS").value = "";
+            document.getElementById("rightSPH").value = "";
+            document.getElementById("rightCYL").value = "";
+            document.getElementById("rightAXIS").value = "";
 
-<script>
-    // Auto-fill the current date
-    document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+            document.getElementById("blueCut").checked = false;
+            document.getElementById("progressive").checked = false;
+            document.getElementById("bifocal").checked = false;
+            document.getElementById("antiGlare").checked = false;
 
-    function generatePDF() {
-        const element = document.getElementById('prescription');
-        html2pdf().from(element).save('Lens_Prescription.pdf');
-    }
-
-    function resetForm() {
-        document.getElementById("patientName").value = "";
-        document.getElementById("age").value = "";
-        document.getElementById("gender").value = "Male"; // Default value
-        document.getElementById("village").value = "";
-
-        document.getElementById("leftSPH").value = "";
-        document.getElementById("leftCYL").value = "";
-        document.getElementById("leftAXIS").value = "";
-        document.getElementById("rightSPH").value = "";
-        document.getElementById("rightCYL").value = "";
-        document.getElementById("rightAXIS").value = "";
-
-        document.getElementById("blueCut").checked = false;
-        document.getElementById("progressive").checked = false;
-        document.getElementById("bifocal").checked = false;
-        document.getElementById("antiGlare").checked = false;
-
-        document.getElementById("amount").value = "";
-    }
-</script>
+            document.getElementById("amount").value = "";
+        });
+    </script>
