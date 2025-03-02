@@ -1,4 +1,8 @@
- // Auto-fill the current date
+<!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+// Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
         // Generate PDF
@@ -57,3 +61,4 @@
                 }
             }, 3000);
         });
+</script>
