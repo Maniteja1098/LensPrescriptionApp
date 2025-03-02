@@ -73,112 +73,46 @@ function saveCounters() {
 // Check for day change when the page loads
 checkDayChange();
 
-// Example: Increment counters when a prescription is generated
-document.getElementById("generatePrescription").addEventListener("click", function () {
+// Function to submit the form
+function submitForm() {
+    // Increment prescription count
     prescriptionCount++;
+
+    // Add the entered amount to the total amount earned
     const amount = parseFloat(document.getElementById("amount").value) || 0;
     amountEarned += amount;
+
+    // Update the UI with the new counters
     updateStats();
-    saveCounters(); // Save updated counters to localStorage
-});
 
-// Function to format numbers as currency (e.g., ₹1,000)
-function formatCurrency(amount) {
-    if (isNaN(amount) || amount === "" || amount === null) {
-        return "₹0";
-    }
-    return `₹${Number(amount).toLocaleString("en-IN")}`;
+    // Save the updated counters to localStorage
+    saveCounters();
+
+    // Reset the form for the next prescription
+    resetForm();
 }
 
-// Function to format numbers as currency (e.g., ₹1,000)
-function formatCurrency(amount) {
-    if (isNaN(amount) || amount === "" || amount === null) {
-        return "₹0";
-    }
-    return `₹${Number(amount).toLocaleString("en-IN")}`;
-}
-
-// Function to update prescription count and amount earned
-function updateStats(amount) {
-    let prescriptionCount = localStorage.getItem("prescriptionCount") || 0;
-    let amountEarned = localStorage.getItem("amountEarned") || 0;
-
-    prescriptionCount = parseInt(prescriptionCount);
-    amountEarned = parseInt(amountEarned);
-
-    // Increase count only on submission, not on page reload
-    prescriptionCount += 1;
-    amountEarned += Number(amount);
-
-    localStorage.setItem("prescriptionCount", prescriptionCount);
-    localStorage.setItem("amountEarned", amountEarned);
-
-    document.getElementById("prescriptionCount").innerText = prescriptionCount;
-    document.getElementById("amountEarned").innerText = formatCurrency(amountEarned);
-}
-
-// Function to reset the form after submission
+// Reset form fields
 function resetForm() {
     document.getElementById("patientName").value = "";
     document.getElementById("age").value = "";
     document.getElementById("gender").value = "Male";
     document.getElementById("village").value = "";
+
     document.getElementById("leftSPH").value = "";
     document.getElementById("leftCYL").value = "";
     document.getElementById("leftAXIS").value = "";
     document.getElementById("rightSPH").value = "";
     document.getElementById("rightCYL").value = "";
     document.getElementById("rightAXIS").value = "";
+
     document.getElementById("blueCut").checked = false;
     document.getElementById("progressive").checked = false;
     document.getElementById("bifocal").checked = false;
     document.getElementById("antiGlare").checked = false;
+
     document.getElementById("amount").value = "";
 }
 
-// Function to submit prescription
-function submitPrescription() {
-    const patientName = document.getElementById("patientName").value;
-    const age = document.getElementById("age").value;
-    const gender = document.getElementById("gender").value;
-    const village = document.getElementById("village").value;
-    const leftSPH = document.getElementById("leftSPH").value;
-    const leftCYL = document.getElementById("leftCYL").value;
-    const leftAXIS = document.getElementById("leftAXIS").value;
-    const rightSPH = document.getElementById("rightSPH").value;
-    const rightCYL = document.getElementById("rightCYL").value;
-    const rightAXIS = document.getElementById("rightAXIS").value;
-    const blueCut = document.getElementById("blueCut").checked;
-    const progressive = document.getElementById("progressive").checked;
-    const bifocal = document.getElementById("bifocal").checked;
-    const antiGlare = document.getElementById("antiGlare").checked;
-    const amount = document.getElementById("amount").value;
-    const date = new Date().toLocaleDateString();  
-
-    if (!patientName || !age || !amount) {
-        alert("Please fill in all required fields.");
-        return;
-    }
-
-    if (isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
-
-    // Update count & amount
-    updateStats(amount);
-
-    // Reset form after submission
-    resetForm();
-
-    alert("Prescription submitted successfully!");
-}
-
-// Load prescription count & amount earned on page load (without incrementing)
-window.onload = function () {
-    let storedAmount = localStorage.getItem("amountEarned") || "0";
-    let storedCount = localStorage.getItem("prescriptionCount") || "0";
-    
-    document.getElementById("prescriptionCount").innerText = storedCount;
-    document.getElementById("amountEarned").innerText = formatCurrency(Number(storedAmount));
-};
+// Auto-fill the current date
+document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
