@@ -211,3 +211,5 @@ function resetForm() {
 // Auto-fill the current date
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+
+}
