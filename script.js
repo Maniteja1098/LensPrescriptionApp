@@ -82,19 +82,27 @@ document.getElementById("generatePrescription").addEventListener("click", functi
     saveCounters(); // Save updated counters to localStorage
 });
 
+// Function to format numbers as currency (e.g., ₹1,000)
+function formatCurrency(amount) {
+    if (isNaN(amount) || amount === "" || amount === null) {
+        return "₹0";
+    }
+    return `₹${Number(amount).toLocaleString("en-IN")}`;
+}
+
 // Function to update prescription count and amount earned
 function updateStats(amount) {
     let prescriptionCount = localStorage.getItem("prescriptionCount") || 0;
     let amountEarned = localStorage.getItem("amountEarned") || 0;
 
     prescriptionCount = parseInt(prescriptionCount) + 1;
-    amountEarned = parseInt(amountEarned) + parseInt(amount);
+    amountEarned = parseInt(amountEarned) + Number(amount);
 
     localStorage.setItem("prescriptionCount", prescriptionCount);
     localStorage.setItem("amountEarned", amountEarned);
 
     document.getElementById("prescriptionCount").innerText = prescriptionCount;
-    document.getElementById("amountEarned").innerText = amountEarned;
+    document.getElementById("amountEarned").innerText = formatCurrency(Number(amountEarned));
 }
 
 // Function to reset the form after submission
@@ -133,31 +141,18 @@ function submitPrescription() {
     const bifocal = document.getElementById("bifocal").checked;
     const antiGlare = document.getElementById("antiGlare").checked;
     const amount = document.getElementById("amount").value;
-    const date = new Date().toLocaleDateString();
+    const date = new Date().toLocaleDateString();    
 
     if (!patientName || !age || !amount) {
         alert("Please fill in all required fields.");
         return;
     }
 
-    const prescriptionData = {
-        patientName,
-        age,
-        gender,
-        village,
-        leftSPH,
-        leftCYL,
-        leftAXIS,
-        rightSPH,
-        rightCYL,
-        rightAXIS,
-        lensType: { blueCut, progressive, bifocal, antiGlare },
-        amount,
-        date
-    };
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
 
-    console.log("Prescription Submitted:", prescriptionData);
-    
     // Update count & amount
     updateStats(amount);
 
@@ -169,6 +164,7 @@ function submitPrescription() {
 
 // Load prescription count & amount earned on page load
 window.onload = function () {
+    let storedAmount = localStorage.getItem("amountEarned") || "0";
     document.getElementById("prescriptionCount").innerText = localStorage.getItem("prescriptionCount") || 0;
-    document.getElementById("amountEarned").innerText = localStorage.getItem("amountEarned") || 0;
+    document.getElementById("amountEarned").innerText = formatCurrency(Number(storedAmount));
 };
