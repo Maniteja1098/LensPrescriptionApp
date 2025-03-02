@@ -43,14 +43,15 @@ function resetForm() {
         document.getElementById("amount").value = "";
     }
 
-function printPrescription() {
-    var ifr = document.createElement('iframe');
-    ifr.style.visibility = 'hidden';
-    ifr.src = window.location.href;  // Load the current page inside iframe
-    document.body.appendChild(ifr);
-    ifr.contentWindow.print();  // Call print inside the iframe
+function printPDF() {
+    var element = document.getElementById('prescription');
+    html2pdf().from(element).set({ filename: 'Prescription.pdf' }).toPdf().get('pdf').then(function(pdf) {
+        var blobURL = URL.createObjectURL(pdf.output('blob'));
+        var iframe = document.createElement('iframe');
+        iframe.style.visibility = "hidden";
+        iframe.src = blobURL;
+        document.body.appendChild(iframe);
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+    });
 }
-
-function openInBrowser() {
-        window.location.href = "intent://print#Intent;scheme=https;package=com.android.chrome;end;";
-    }
