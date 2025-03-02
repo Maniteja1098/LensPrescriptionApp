@@ -182,6 +182,22 @@ function resetForm() {
 
     document.getElementById("amount").value = "";
 }
+   // Function to fetch and display prescriptions
+        async function fetchPrescriptions() {
+            try {
+                const querySnapshot = await db.collection("prescriptions").get();
+                const prescriptions = querySnapshot.docs.map(doc => doc.data());
+
+                // Display prescriptions (you can customize this part)
+                console.log("Stored Prescriptions:", prescriptions);
+            } catch (error) {
+                console.error("Error fetching prescriptions: ", error);
+            }
+        }
+
+        // Call fetchPrescriptions to load data when the page loads
+        fetchPrescriptions();
+
 
     // Function to reset counters (for testing)
         function resetCounters() {
