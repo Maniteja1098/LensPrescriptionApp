@@ -51,3 +51,6 @@ function printPrescription() {
     ifr.contentWindow.print();  // Call print inside the iframe
 }
 
+function openInBrowser() {
+        window.location.href = "intent://print#Intent;scheme=https;package=com.android.chrome;end;";
+    }
