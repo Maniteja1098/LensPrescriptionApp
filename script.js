@@ -90,19 +90,31 @@ function formatCurrency(amount) {
     return `₹${Number(amount).toLocaleString("en-IN")}`;
 }
 
+// Function to format numbers as currency (e.g., ₹1,000)
+function formatCurrency(amount) {
+    if (isNaN(amount) || amount === "" || amount === null) {
+        return "₹0";
+    }
+    return `₹${Number(amount).toLocaleString("en-IN")}`;
+}
+
 // Function to update prescription count and amount earned
 function updateStats(amount) {
     let prescriptionCount = localStorage.getItem("prescriptionCount") || 0;
     let amountEarned = localStorage.getItem("amountEarned") || 0;
 
-    prescriptionCount = parseInt(prescriptionCount) + 1;
-    amountEarned = parseInt(amountEarned) + Number(amount);
+    prescriptionCount = parseInt(prescriptionCount);
+    amountEarned = parseInt(amountEarned);
+
+    // Increase count only on submission, not on page reload
+    prescriptionCount += 1;
+    amountEarned += Number(amount);
 
     localStorage.setItem("prescriptionCount", prescriptionCount);
     localStorage.setItem("amountEarned", amountEarned);
 
     document.getElementById("prescriptionCount").innerText = prescriptionCount;
-    document.getElementById("amountEarned").innerText = formatCurrency(Number(amountEarned));
+    document.getElementById("amountEarned").innerText = formatCurrency(amountEarned);
 }
 
 // Function to reset the form after submission
@@ -141,7 +153,7 @@ function submitPrescription() {
     const bifocal = document.getElementById("bifocal").checked;
     const antiGlare = document.getElementById("antiGlare").checked;
     const amount = document.getElementById("amount").value;
-    const date = new Date().toLocaleDateString();    
+    const date = new Date().toLocaleDateString();  
 
     if (!patientName || !age || !amount) {
         alert("Please fill in all required fields.");
@@ -162,9 +174,11 @@ function submitPrescription() {
     alert("Prescription submitted successfully!");
 }
 
-// Load prescription count & amount earned on page load
+// Load prescription count & amount earned on page load (without incrementing)
 window.onload = function () {
     let storedAmount = localStorage.getItem("amountEarned") || "0";
-    document.getElementById("prescriptionCount").innerText = localStorage.getItem("prescriptionCount") || 0;
+    let storedCount = localStorage.getItem("prescriptionCount") || "0";
+    
+    document.getElementById("prescriptionCount").innerText = storedCount;
     document.getElementById("amountEarned").innerText = formatCurrency(Number(storedAmount));
 };
