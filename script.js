@@ -142,10 +142,10 @@ function resetForm() {
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
-
 function sendWhatsApp() {
-let mobile = document.getElementById("patientMobile").value.trim();
-let whatsappURL = `https://wa.me/${mobile}?text=${encodedMessage}`;
+    // Get patient mobile number
+    let mobile = document.getElementById("patientMobile").value.trim();
+    
     // Get patient details
     let patientName = document.getElementById("patientName").value || "N/A";
     let age = document.getElementById("age").value || "N/A";
@@ -189,7 +189,9 @@ let whatsappURL = `https://wa.me/${mobile}?text=${encodedMessage}`;
     // Encode message for WhatsApp
     let encodedMessage = encodeURIComponent(message);
     
+    // Determine WhatsApp URL (with or without mobile number)
+    let whatsappURL = mobile ? `https://wa.me/${mobile}?text=${encodedMessage}` : `https://wa.me/?text=${encodedMessage}`;
+    
     // Open WhatsApp
-    let whatsappURL = `https://wa.me/?text=${encodedMessage}`;
     window.open(whatsappURL, "_blank");
 }
