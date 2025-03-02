@@ -6,8 +6,7 @@
     <title>Lens Prescription</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json"> <!-- Ensure this file exists -->
-<script src="script.js"></script> <!-- Ensure this file exists -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 <body>
 
@@ -99,11 +98,15 @@
 
         <!-- Buttons -->
         <div class="buttons">
-            <button onclick="generatePDF()">Download PDF</button>
-            <button onclick="window.print()">Print</button>
-            <button onclick="resetForm()">Reset</button> <!-- Updated onclick function name -->
-            <button id="generatePrescription">Generate Prescription</button>
-        </div>
+    <button onclick="generatePDF()">Download PDF</button>
+    <button onclick="window.print()">Print</button>
+    <button onclick="resetForm()">Reset</button>
+    <button id="generatePrescription">Generate Prescription</button>
+</div>
     </div>
+
+    <script src="script.js"></script> <!-- Ensure this file exists -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
 </body>
 </html>
