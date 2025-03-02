@@ -75,25 +75,11 @@ function saveCounters() {
 checkDayChange();
 
 // Function to submit the form
-async function submitForm() {
+function submitForm() {
     // Get form values
     const patientName = document.getElementById("patientName").value.trim();
     const age = document.getElementById("age").value.trim();
-    const gender = document.getElementById("gender").value;
-    const village = document.getElementById("village").value.trim();
     const amount = parseFloat(document.getElementById("amount").value);
-
-    const leftSPH = document.getElementById("leftSPH").value;
-    const leftCYL = document.getElementById("leftCYL").value;
-    const leftAXIS = document.getElementById("leftAXIS").value;
-    const rightSPH = document.getElementById("rightSPH").value;
-    const rightCYL = document.getElementById("rightCYL").value;
-    const rightAXIS = document.getElementById("rightAXIS").value;
-
-    const blueCut = document.getElementById("blueCut").checked;
-    const progressive = document.getElementById("progressive").checked;
-    const bifocal = document.getElementById("bifocal").checked;
-    const antiGlare = document.getElementById("antiGlare").checked;
 
     // Validate required fields
     if (!patientName || !age || !amount) {
