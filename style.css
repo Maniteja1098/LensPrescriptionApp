@@ -54,7 +54,7 @@ p {
 .optometrist-details .left {
     display: flex;
     flex-direction: column; /* Stack name and mobile vertically */
-    gap: 5px; /* Space between name and mobile */
+    gap: 2px; /* Space between name and mobile */
 }
 
 .optometrist-details .right {
