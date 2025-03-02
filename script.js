@@ -36,21 +36,6 @@
             }, 3000);
         });
 
-// Firebase configuration
-       const firebaseConfig = {
-  apiKey: "AIzaSyCSA8rZtaFsjDxLe8SvU1neKtNpXOCXobY",
-  authDomain: "lensprescriptionapp-516f0.firebaseapp.com",
-  projectId: "lensprescriptionapp-516f0",
-  storageBucket: "lensprescriptionapp-516f0.firebasestorage.app",
-  messagingSenderId: "255818943089",
-  appId: "1:255818943089:web:616bf6faa4460eae3be9d0",
-  measurementId: "G-Z80F9WGLQB"
-};
-
- // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
 // Initialize counters
 let prescriptionCount = 0;
 let amountEarned = 0;
@@ -122,28 +107,6 @@ async function submitForm() {
         return;
     }
 
-    // Create prescription object
-    const prescription = {
-        patientName,
-        age,
-        gender,
-        village,
-        amount,
-        leftEye: { SPH: leftSPH, CYL: leftCYL, AXIS: leftAXIS },
-        rightEye: { SPH: rightSPH, CYL: rightCYL, AXIS: rightAXIS },
-        lensType: { blueCut, progressive, bifocal, antiGlare },
-        date: new Date().toLocaleDateString()
-    };
-
-    // Save prescription to Firestore
-    try {
-        await db.collection("prescriptions").add(prescription);
-        alert("Prescription saved successfully!");
-    } catch (error) {
-        console.error("Error saving prescription: ", error);
-        alert("Failed to save prescription.");
-    }
-
     // Increment prescription count
     prescriptionCount++;
 
@@ -181,23 +144,6 @@ function resetForm() {
 
     document.getElementById("amount").value = "";
 }
-   // Function to fetch and display prescriptions
-        async function fetchPrescriptions() {
-            try {
-                const querySnapshot = await db.collection("prescriptions").get();
-                const prescriptions = querySnapshot.docs.map(doc => doc.data());
-
-                // Display prescriptions (you can customize this part)
-                console.log("Stored Prescriptions:", prescriptions);
-            } catch (error) {
-                console.error("Error fetching prescriptions: ", error);
-            }
-        }
-
-        // Call fetchPrescriptions to load data when the page loads
-        fetchPrescriptions();
-
-
     // Function to reset counters (for testing)
         function resetCounters() {
             prescriptionCount = 0;
@@ -211,5 +157,3 @@ function resetForm() {
 // Auto-fill the current date
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
-
-}
