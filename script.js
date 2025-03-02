@@ -114,20 +114,17 @@ function resetForm() {
     document.getElementById("patientName").value = "";
     document.getElementById("age").value = "";
     document.getElementById("gender").value = "Male";
-    document.getElementById("village").value = "";
-
+    document.getElementById("mobilenumber").value = "";
     document.getElementById("leftSPH").value = "";
     document.getElementById("leftCYL").value = "";
     document.getElementById("leftAXIS").value = "";
     document.getElementById("rightSPH").value = "";
     document.getElementById("rightCYL").value = "";
     document.getElementById("rightAXIS").value = "";
-
     document.getElementById("blueCut").checked = false;
     document.getElementById("progressive").checked = false;
     document.getElementById("bifocal").checked = false;
     document.getElementById("antiGlare").checked = false;
-
     document.getElementById("amount").value = "";
 }
 
