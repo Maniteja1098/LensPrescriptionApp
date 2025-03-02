@@ -227,19 +227,6 @@ button:hover {
         display: none;
     }
 }
-.whatsapp-icon {
-    display: inline-block;
-    margin-top: 10px;
-}
-.whatsapp-icon img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-.whatsapp-icon img:hover {
-    transform: scale(1.1);
-}
 
 /* Developer Credit */
 .developer-credit {
