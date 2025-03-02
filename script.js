@@ -1,19 +1,3 @@
-// Firebase configuration
-       const firebaseConfig = {
-  apiKey: "AIzaSyCSA8rZtaFsjDxLe8SvU1neKtNpXOCXobY",
-  authDomain: "lensprescriptionapp-516f0.firebaseapp.com",
-  projectId: "lensprescriptionapp-516f0",
-  storageBucket: "lensprescriptionapp-516f0.firebasestorage.app",
-  messagingSenderId: "255818943089",
-  appId: "1:255818943089:web:616bf6faa4460eae3be9d0",
-  measurementId: "G-Z80F9WGLQB"
-};
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-
 // Auto-fill the current date
         document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
@@ -51,6 +35,21 @@
                 }
             }, 3000);
         });
+
+// Firebase configuration
+       const firebaseConfig = {
+  apiKey: "AIzaSyCSA8rZtaFsjDxLe8SvU1neKtNpXOCXobY",
+  authDomain: "lensprescriptionapp-516f0.firebaseapp.com",
+  projectId: "lensprescriptionapp-516f0",
+  storageBucket: "lensprescriptionapp-516f0.firebasestorage.app",
+  messagingSenderId: "255818943089",
+  appId: "1:255818943089:web:616bf6faa4460eae3be9d0",
+  measurementId: "G-Z80F9WGLQB"
+};
+
+ // Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // Initialize counters
 let prescriptionCount = 0;
