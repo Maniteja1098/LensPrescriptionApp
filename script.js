@@ -7,28 +7,6 @@
             html2pdf().from(element).save('Lens_Prescription.pdf');
         }
 
-        // Reset Form
-        function resetForm() {
-            document.getElementById("patientName").value = "";
-            document.getElementById("age").value = "";
-            document.getElementById("gender").value = "Male";
-            document.getElementById("village").value = "";
-
-            document.getElementById("leftSPH").value = "";
-            document.getElementById("leftCYL").value = "";
-            document.getElementById("leftAXIS").value = "";
-            document.getElementById("rightSPH").value = "";
-            document.getElementById("rightCYL").value = "";
-            document.getElementById("rightAXIS").value = "";
-
-            document.getElementById("blueCut").checked = false;
-            document.getElementById("progressive").checked = false;
-            document.getElementById("bifocal").checked = false;
-            document.getElementById("antiGlare").checked = false;
-
-            document.getElementById("amount").value = "";
-        }
-
         // PWA Installation
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
@@ -103,6 +81,42 @@ document.getElementById("generatePrescription").addEventListener("click", functi
     updateStats();
     saveCounters(); // Save updated counters to localStorage
 });
+
+// Function to update prescription count and amount earned
+function updateStats(amount) {
+    let prescriptionCount = localStorage.getItem("prescriptionCount") || 0;
+    let amountEarned = localStorage.getItem("amountEarned") || 0;
+
+    prescriptionCount = parseInt(prescriptionCount) + 1;
+    amountEarned = parseInt(amountEarned) + parseInt(amount);
+
+    localStorage.setItem("prescriptionCount", prescriptionCount);
+    localStorage.setItem("amountEarned", amountEarned);
+
+    document.getElementById("prescriptionCount").innerText = prescriptionCount;
+    document.getElementById("amountEarned").innerText = amountEarned;
+}
+
+// Function to reset the form after submission
+function resetForm() {
+    document.getElementById("patientName").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("gender").value = "Male";
+    document.getElementById("village").value = "";
+    document.getElementById("leftSPH").value = "";
+    document.getElementById("leftCYL").value = "";
+    document.getElementById("leftAXIS").value = "";
+    document.getElementById("rightSPH").value = "";
+    document.getElementById("rightCYL").value = "";
+    document.getElementById("rightAXIS").value = "";
+    document.getElementById("blueCut").checked = false;
+    document.getElementById("progressive").checked = false;
+    document.getElementById("bifocal").checked = false;
+    document.getElementById("antiGlare").checked = false;
+    document.getElementById("amount").value = "";
+}
+
+// Function to submit prescription
 function submitPrescription() {
     const patientName = document.getElementById("patientName").value;
     const age = document.getElementById("age").value;
@@ -137,18 +151,24 @@ function submitPrescription() {
         rightSPH,
         rightCYL,
         rightAXIS,
-        lensType: {
-            blueCut,
-            progressive,
-            bifocal,
-            antiGlare
-        },
+        lensType: { blueCut, progressive, bifocal, antiGlare },
         amount,
         date
     };
 
     console.log("Prescription Submitted:", prescriptionData);
-    alert("Prescription submitted successfully!");
+    
+    // Update count & amount
+    updateStats(amount);
 
-    // You can now send this data to Firebase, Google Sheets, or LocalStorage
+    // Reset form after submission
+    resetForm();
+
+    alert("Prescription submitted successfully!");
 }
+
+// Load prescription count & amount earned on page load
+window.onload = function () {
+    document.getElementById("prescriptionCount").innerText = localStorage.getItem("prescriptionCount") || 0;
+    document.getElementById("amountEarned").innerText = localStorage.getItem("amountEarned") || 0;
+};
