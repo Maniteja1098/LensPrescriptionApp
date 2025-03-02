@@ -130,6 +130,7 @@ function resetForm() {
 
     document.getElementById("amount").value = "";
 }
+
     // Function to reset counters (for testing)
         function resetCounters() {
             prescriptionCount = 0;
