@@ -15,6 +15,24 @@ html, body {
     background-color: #f4f4f4;
 }
 
+/* Prescription Stats */
+.prescription-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.prescription-stats .left,
+.prescription-stats .right {
+    flex: 1;
+}
+
+.prescription-stats .right {
+    text-align: right;
+}
+
 /* Prescription Container */
 #prescription {
     max-width: 400px;
