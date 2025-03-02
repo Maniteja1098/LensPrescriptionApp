@@ -114,12 +114,13 @@
             const element = document.getElementById('prescription');
             html2pdf().from(element).save('Lens_Prescription.pdf');
         }
-    </script>
+    
 
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log("Service Worker Registered"))
+        .catch((error) => console.log("Service Worker Registration Failed", error));
+}
+</script>
 </body>
 </html>
