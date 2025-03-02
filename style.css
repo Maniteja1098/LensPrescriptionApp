@@ -1,32 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Reset default margins and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body {
     font-family: 'Poppins', sans-serif;
+    text-align: center;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
 /* Prescription Container */
 #prescription {
     max-width: 400px;
-    margin: 0 auto; /* Center the container */
+    margin: 20px auto;
     background: white;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    min-height: 100vh; /* Ensure it takes full height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribute space evenly */
 }
 
 /* Header */
@@ -186,14 +175,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Developer Credit */
-.developer-credit {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 12px;
-    color: #666;
-}
-
 /* Print Layout */
 @media print {
     body {
@@ -206,4 +187,12 @@ button:hover {
     .buttons {
         display: none;
     }
+}
+
+/* Developer Credit */
+.developer-credit {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
 }
