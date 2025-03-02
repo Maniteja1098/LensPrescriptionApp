@@ -73,6 +73,23 @@ function saveCounters() {
 // Check for day change when the page loads
 checkDayChange();
 
+// Function to submit prescription
+function submitPrescription() {
+    const patientName = document.getElementById("patientName").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+
+    if (!patientName || !age || !amount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+
 // Function to submit the form
 function submitForm() {
     // Increment prescription count
