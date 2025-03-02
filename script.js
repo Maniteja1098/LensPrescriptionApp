@@ -55,3 +55,9 @@ function printPDF() {
         iframe.contentWindow.print();
     });
 }
+function printPrescription() {
+    var printWindow = window.open('', '', 'width=600,height=600');
+    printWindow.document.write(document.documentElement.innerHTML);
+    printWindow.document.close();
+    printWindow.print();
+}
