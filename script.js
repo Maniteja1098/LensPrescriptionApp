@@ -44,3 +44,40 @@ function generatePDF() {
         window.open(blobURL, '_blank');  // Open PDF in new tab for printing
     }).catch(error => console.error("PDF generation error:", error));
 }
+<!-- Buttons -->
+<div class="buttons">
+    <button onclick="generatePDF()">Download PDF</button>
+    <button onclick="window.print()">Print</button>
+    <button onclick="resetForm()">Reset</button> <!-- Reset Button -->
+</div>
+
+<script>
+    // Auto-fill the current date
+    document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
+
+    function generatePDF() {
+        const element = document.getElementById('prescription');
+        html2pdf().from(element).save('Lens_Prescription.pdf');
+    }
+
+    function resetForm() {
+        document.getElementById("patientName").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("gender").value = "Male"; // Default value
+        document.getElementById("village").value = "";
+
+        document.getElementById("leftSPH").value = "";
+        document.getElementById("leftCYL").value = "";
+        document.getElementById("leftAXIS").value = "";
+        document.getElementById("rightSPH").value = "";
+        document.getElementById("rightCYL").value = "";
+        document.getElementById("rightAXIS").value = "";
+
+        document.getElementById("blueCut").checked = false;
+        document.getElementById("progressive").checked = false;
+        document.getElementById("bifocal").checked = false;
+        document.getElementById("antiGlare").checked = false;
+
+        document.getElementById("amount").value = "";
+    }
+</script>
