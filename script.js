@@ -1,56 +1,15 @@
- <script>
-        // Display Current Date
-        window.onload = function () {
-            document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
-        };
-
-        // Generate Prescription (Formats for Everycom EC-58 Printer)
-        document.getElementById("generatePrescription").addEventListener("click", function() {
-            alert("Prescription formatted for Everycom EC-58 Printer!");
-        });
-
-        let deferredPrompt;
-
-        // Handle PWA Install Prompt
-        window.addEventListener("beforeinstallprompt", (event) => {
-            event.preventDefault();
-            deferredPrompt = event;
-
-            // Show install prompt after 3 seconds
-            setTimeout(() => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === "accepted") {
-                            console.log("User accepted the install prompt.");
-                        } else {
-                            console.log("User dismissed the install prompt.");
-                        }
-                        deferredPrompt = null;
-                    }).catch(error => console.error("Install prompt error:", error));
-                }
-            }, 3000); 
-        });
+<script>
+        // Auto-fill the current date
+        document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
 
         // Generate PDF
         function generatePDF() {
-            var element = document.getElementById('prescription');
-            var opt = {
-                margin: 5,
-                filename: 'Prescription.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().from(element).set(opt).toPdf().get('pdf').then(function(pdf) {
-                var blobURL = URL.createObjectURL(pdf.output('blob'));
-                window.open(blobURL, '_blank'); 
-            }).catch(error => console.error("PDF generation error:", error));
+            const element = document.getElementById('prescription');
+            html2pdf().from(element).save('Lens_Prescription.pdf');
         }
 
         // Reset Form
-        document.getElementById("resetButton").addEventListener("click", function resetForm() {
+        function resetForm() {
             document.getElementById("patientName").value = "";
             document.getElementById("age").value = "";
             document.getElementById("gender").value = "Male"; // Default value
@@ -69,5 +28,34 @@
             document.getElementById("antiGlare").checked = false;
 
             document.getElementById("amount").value = "";
+        }
+
+        // PWA Installation
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log("Service Worker Registered"))
+                .catch((error) => console.log("Service Worker Registration Failed", error));
+        }
+
+        // Handle PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredPrompt = event;
+
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === "accepted") {
+                            console.log("User accepted the install prompt.");
+                        } else {
+                            console.log("User dismissed the install prompt.");
+                        }
+                        deferredPrompt = null;
+                    }).catch(error => console.error("Install prompt error:", error));
+                }
+            }, 3000);
         });
     </script>
