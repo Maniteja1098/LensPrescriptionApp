@@ -132,7 +132,7 @@ function resetForm() {
 }
 
     // Function to reset counters (for testing)
-        function resetCounters() {
+        function resetStats() {
             prescriptionCount = 0;
             amountEarned = 0;
             updateStats(); // Update the UI
